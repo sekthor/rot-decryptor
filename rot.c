@@ -35,6 +35,12 @@ int main(int argc, char *argv[])
 
 	// shift char by shift_value spaces
 	for (int i = 0; i < strlen(msg); i++) {
+
+		// make sure only letters are shifted
+		if (msg[i] < 65 || msg[i] > 90)
+			continue;
+
+
 		msg[i] += shift_value;
 
 		// correct out of bounds of alphabet
