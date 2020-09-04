@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
 
@@ -6,7 +7,8 @@ void usage();
 
 int main(int argc, char *argv[])
 {
-	int shift_value;
+	int shift_value = 13;
+	unsigned char decrypt = 0;
 	char msg[BUFSIZ];
 
 
@@ -16,15 +18,34 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
+	// parse arguments
 	for (int i = 0; i < argc; i++) {
+
+		// help option
 		if (!strcmp(argv[i], "-h")) {
 			usage();
 			return 0;
 		}
+
+		// detect whether to encrypt or dercrypt
+		else if (!strcmp(argv[i], "-d"))
+			decrypt = 1;
+				
+
+		// determine shift value
+		else if (!strcmp(argv[i], "-c")) {
+			shift_value = atoi(argv[++i]);
+		}
+
+		// get message
+		else if (!strcmp(argv[i], "-m"))
+				strcpy(msg, argv[++i]);
+		
 	}
 
-	shift_value = -13;
-	strcpy(msg, argv[1]);
+	// change shift_vaule for decryption, if needed
+	if (decrypt)
+		shift_value *= -1;
 
 	// converting msg to upper case
 	char *current = msg;
@@ -40,7 +61,7 @@ int main(int argc, char *argv[])
 		if (msg[i] < 65 || msg[i] > 90)
 			continue;
 
-
+		// shift letter by shift_value
 		msg[i] += shift_value;
 
 		// correct out of bounds of alphabet
