@@ -81,6 +81,11 @@ int main(int argc, char *argv[])
 
 void usage()
 {
-	printf("Usage: rot <option> STRING\n");
+	printf("Usage: rot <options> -m STRING\n\n");
+	printf("OPTIONS\n-------\n");
+	printf("-h\tDisplays this help message\n");
+	printf("-m\tMessage: follwed by string to en/decrypt\n");
+	printf("-c\tSet the number of characters to shift by. Default: 13\n");
+	printf("-d\tSet program to decryption mode. Default is encryption\n");
 }
 
